@@ -6,6 +6,7 @@ import paymentRoute from "./payment.route";
 import webhookRoute from "./webhook.route";
 import miscRoute from "./misc.route";
 import serviceProviderRoute from "./serviceProvider.route";
+import merchantRoute from "./merchantRoutes";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.use("/bundle", bundleRoute);
 router.use("/payment", paymentRoute);
 router.use("/webhook", webhookRoute);
 router.use("/misc", miscRoute);
+router.use("/partner", merchantRoute);
 
 export default router;
