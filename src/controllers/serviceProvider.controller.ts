@@ -1,5 +1,6 @@
 //I did not implement service for service provider on a separate file
 //I did the business logic here in the controller 📝
+//IGNORE THIS FILE ⚠️⚠️⚠️
 
 import { Request, Response } from "express";
 import ServiceProvider from "../models/serviceProvider.model";
@@ -13,10 +14,10 @@ export const createServiceProvider = async (req: Request, res: Response) => {
       name,
       category,
       bankDetails,
-      createdBy: req.user.id, // this adds creator reference
+      createdBy: req.user.id, 
     });
 
-    sendSuccessResponse(res, "Service provider created", provider, 201);
+    sendSuccessResponse(res, "Service provider created", provider, 201);  
   } catch (error: any) {
     if (error.code === 11000) {
       sendErrorResponse(res, "Service provider name already exists", null, 409);

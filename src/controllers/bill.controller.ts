@@ -5,25 +5,40 @@ import {
   updateBillStatus,
 } from "../services/bill.service";
 import { sendSuccessResponse, sendErrorResponse } from "../utils/apiResponse";
-import ServiceProvider from "../models/serviceProvider.model";
+import { Merchant } from "../models/merchant.model";
 
 export const create = async (req: Request, res: Response) => {
   try {
-    const { serviceProvider, amount, dueDate, referenceNumber, description } =
-      req.body;
+    const {
+      owner,
+      merchant,
+      amount,
+      dueDate,
+      referenceNumber,
+      category,
+      description,
+    } = req.body;
+
+    //validate category fileds
+    if (!category) {
+      sendErrorResponse(res, "Category is required", null, 400);
+      return;
+    }
 
     // Verify service provider exists
-    const provider = await ServiceProvider.findById(serviceProvider);
+    const provider = await Merchant.findById(merchant);
     if (!provider) {
       sendErrorResponse(res, "Service provider not found", null, 404);
       return;
     }
 
     const bill = await createBill(
-      serviceProvider,
+      owner,
+      merchant,
       amount,
       dueDate,
       referenceNumber,
+      category,
       description
     );
     sendSuccessResponse(res, "Bill created successfully 🎉", bill, 201);

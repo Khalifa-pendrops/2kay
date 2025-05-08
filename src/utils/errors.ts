@@ -1,4 +1,4 @@
-//not sure yet whether to use these errors 🔔
+//not sure yet whether to still use these errors 🔔
 
 export class AppError extends Error {
   public statusCode: number;

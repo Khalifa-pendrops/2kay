@@ -4,6 +4,7 @@ import { IUser, UserRole } from "../interfaces/user.interfaces";
 
 const userSchema: Schema = new Schema(
   {
+    // _id: Types.ObjectId,
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },

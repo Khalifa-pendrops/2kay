@@ -39,7 +39,7 @@ export const registerMerchant = async (
       ...registrationData,
       bank: {
         ...registrationData.bank,
-        ownershipProof,
+        ownershipProof, 
       },
     });
 

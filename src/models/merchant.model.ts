@@ -1,5 +1,5 @@
 import { MerchantDocument } from "../interfaces/merchant";
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const MerchantSchema = new mongoose.Schema<MerchantDocument>(
   {
@@ -31,9 +31,23 @@ const MerchantSchema = new mongoose.Schema<MerchantDocument>(
       agreedToTerms: { type: Boolean, required: true },
     },
     status: { type: String, default: "pending" },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      // required: true,
+    },
   },
   { timestamps: true }
 );
+
+const indexes: [Record<string, any>, Record<string, any>][] =
+  MerchantSchema.indexes();
+
+indexes.forEach(([fields]) => {
+  if (fields["user_1"]) {
+    MerchantSchema.index({ user_1: 1 }, { unique: false });
+  }
+});
 
 export const Merchant = mongoose.model<MerchantDocument>(
   "Merchant",

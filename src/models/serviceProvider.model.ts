@@ -24,9 +24,9 @@ const ServiceProviderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
-    },
+    }, 
   },
-  { timestamps: true }
+  { timestamps: true } 
 );
 
 // Removes any existing problematic indexes

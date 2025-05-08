@@ -3,7 +3,6 @@ import OTP from "../models/otp.model";
 
 export default {
   async generateOTP(identifier: string, purpose: string): Promise<string> {
-    // Delete existing OTPs for this identifier/purpose
     await OTP.deleteMany({ identifier, purpose });
 
     const code = crypto.randomInt(100000, 999999).toString();

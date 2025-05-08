@@ -1,4 +1,4 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Types } from "mongoose";
 
 export interface MerchantDocument extends Document {
   business: {
@@ -25,6 +25,7 @@ export interface MerchantDocument extends Document {
     agreedToTerms: boolean;
   };
   status: "pending" | "approved" | "rejected"; 
+  createdBy?: Types.ObjectId; //watch here ⚠️⚠️⚠️
   createdAt: Date;
   updatedAt: Date;
 }

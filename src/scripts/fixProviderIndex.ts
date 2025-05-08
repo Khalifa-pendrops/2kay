@@ -1,18 +1,21 @@
+import { Merchant } from "@/models/merchant.model";
+
 const mongoose = require("mongoose");
 require("dotenv").config();
 const ServiceProvider = require("./src/models/serviceProvider.model");
+
 
 async function fixIndexes() {
   await mongoose.connect(process.env.MONGODB_URI);
 
   // 1. Remove problematic documents
-  await ServiceProvider.deleteMany({ user: null });
+  await Merchant.deleteMany({ user: null });
 
   // 2. Refresh indexes
-  await ServiceProvider.collection.dropIndexes();
+  await Merchant.collection.dropIndexes();
 
   // 3. Create proper index
-  await ServiceProvider.collection.createIndex({ name: 1 }, { unique: true });
+  await Merchant.collection.createIndex({ name: 1 }, { unique: true });
 
   console.log("Indexes fixed successfully");
   process.exit(0);

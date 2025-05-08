@@ -8,5 +8,5 @@ export interface IServiceProvider extends Document {
     accountNumber: string;
     accountName: string;
   };
-  isVerified: boolean;
+  isVerified: boolean;  
 }

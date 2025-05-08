@@ -1,5 +1,6 @@
 import app from "./app";
 import config from "./config/config";
+import "./cron/expireBundles"; 
 
 const PORT = config.PORT;
 

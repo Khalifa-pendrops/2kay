@@ -11,21 +11,12 @@ const router = Router();
 
 router.use(authenticate);
 
-// Only bill owners and service providers can create bills
-router.post(
-  "/",
-  authorize(UserRole.BILL_OWNER, UserRole.SERVICE_PROVIDER),
-  create
-);
 
-// Service providers can see bills created for them
-router.get("/my-bills", authorize(UserRole.SERVICE_PROVIDER), getMyBills);
+router.post("/", authorize(UserRole.BILL_OWNER, UserRole.MERCHANT), create); //here ⚠️⚠️⚠️
 
-// Update bill status (typically by service providers)
-router.patch(
-  "/:billId/status",
-  authorize(UserRole.SERVICE_PROVIDER),
-  updateStatus
-);
+router.get("/my-bills", authorize(UserRole.MERCHANT), getMyBills); //here ⚠️⚠️⚠️
+
+
+router.patch("/:billId/status", authorize(UserRole.MERCHANT), updateStatus); //here ⚠️⚠️⚠️
 
 export default router;

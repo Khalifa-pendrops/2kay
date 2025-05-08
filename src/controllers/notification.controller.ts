@@ -24,4 +24,5 @@ export const markAsRead = async (req: Request, res: Response) => {
   } catch (error: any) {
     sendErrorResponse(res, "Failed to update notification 😞", error.message, 500);
   }
-};
+}; 
+

@@ -8,15 +8,13 @@ import { sendErrorResponse } from "./utils/apiResponse";
 
 const app = express();
 
-
 connectDB();
-
 
 app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/api/v1", mainRoute);
@@ -26,11 +24,10 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "OK" });
 });
 
-// 404 handler
+// 404 handler just in case
 app.use((req, res) => {
   sendErrorResponse(res, "Route not found", null, 404);
 });
-
 
 app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);

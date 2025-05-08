@@ -1,4 +1,5 @@
-import { Document } from "mongoose";
+import { Document, Types } from "mongoose";
+import { MerchantDocument } from "./merchant";
 
 export enum BillStatus {
   PENDING = "pending",
@@ -8,10 +9,20 @@ export enum BillStatus {
 }
 
 export interface IBill extends Document {
-  serviceProvider: string; // Reference to ServiceProvider
+  _id: Types.ObjectId;
+  merchant: Types.ObjectId | string | MerchantDocument; //Reference to merchant ⚠️⚠️⚠️
   amount: number;
   dueDate?: Date;
   status: BillStatus;
   description?: string;
   referenceNumber: string;
+  merchantBankDetails?: {
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
+  }; //here ⚠️⚠️⚠️
+  owner: Types.ObjectId;
+  //just added these lines now to redo Bundel entirely ⚠️⚠️⚠️
+  category: "rent" | "utility" | "e-com" | "others";
+  priority: 'high' | 'meduim' | 'low';
 }

@@ -1,20 +1,33 @@
 import Bill from "../models/bill.model";
 import { IBill } from "../interfaces/bill.interface";
-
+import { Merchant } from "../models/merchant.model";
 
 export const createBill = async (
-  serviceProvider: string,
+  owner: string,
+  merchant: string,
   amount: number,
   dueDate: Date,
   referenceNumber: string,
+  category: string,
   description?: string
 ): Promise<IBill> => {
+  // Check if merchant exists and has bank details
+  const merchantWithBank = await Merchant.findById(merchant).select("bank");
+  if (!merchantWithBank) throw new Error("Merchant not found");
+
   const bill = new Bill({
-    serviceProvider,
+    owner,
+    merchant,
     amount,
     dueDate,
     referenceNumber,
+    category,
     description,
+    merchantBankDetails: {
+      bankName: merchantWithBank.bank.bankName,
+      accountName: merchantWithBank.bank.accountName,
+      accountNumber: merchantWithBank.bank.accountNumber,
+    },
   });
 
   await bill.save();
@@ -22,8 +35,8 @@ export const createBill = async (
 };
 
 export const getBillsByOwner = async (ownerId: string): Promise<IBill[]> => {
-  return Bill.find({ serviceProvider: ownerId });
-};
+  return Bill.find({ merchant: ownerId }).populate("merchant", "bank");
+}; // here ⚠️⚠️⚠️
 
 export const updateBillStatus = async (
   billId: string,

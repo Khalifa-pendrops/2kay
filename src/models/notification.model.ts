@@ -1,3 +1,5 @@
+//sorry notification interfce is here too ⚠️⚠️⚠️😞
+
 import mongoose, { Schema, Document } from "mongoose";
 
 interface INotification extends Document {

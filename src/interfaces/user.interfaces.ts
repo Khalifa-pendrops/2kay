@@ -4,10 +4,12 @@ export enum UserRole {
   BILL_OWNER = "bill_owner",
   BILL_SPONSOR = "bill_sponsor",
   SERVICE_PROVIDER = "service_provider",
+  MERCHANT = "merchant",
   EXPENSE_MANAGER = "expense_manager",
 }
 
 export interface IUser extends Document {
+  // _id: Types.ObjectId;
   firstName: string;
   lastName: string;
   email: string;

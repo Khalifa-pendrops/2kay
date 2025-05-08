@@ -2,7 +2,11 @@ import { Router } from "express";
 import { otpRateLimiter } from "../middlewares/rateLimits.middleware";
 import { authenticate } from "../middlewares/auth.middleware";
 import { requestOTP, verifyOTP } from "../controllers/otp.controller";
-import { sendSponsorLink } from "../controllers/sponsorship.controller";
+// import {
+//   sendSponsorLink,
+//   resendSponsorLink,
+//   validateSponsorLink,
+// } from "../controllers/sponsorship.controller";
 import {
   getNotifications,
   markAsRead,
@@ -15,7 +19,9 @@ router.post("/otp/request", otpRateLimiter, requestOTP);
 router.post("/otp/verify", verifyOTP);
 
 // Sponsorship Routes
-router.post("/sponsor/send-link", authenticate, sendSponsorLink);
+// router.post("/send", authenticate, sendSponsorLink);
+// router.post("/resend", authenticate, resendSponsorLink);
+// router.get("/validate/:token", validateSponsorLink);
 
 // Notification Routes
 router.get("/notifications", authenticate, getNotifications);
